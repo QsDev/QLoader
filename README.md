@@ -54,7 +54,7 @@ define("adminFolder/app",["require","exports","define","context"],
         //      context: contains usefull function for type reflection
         var StringContructor=context.GetType('String');
         var ClassAContructor=context.GetType('namespace.classA');
-        var parentFolder=context.GetPath('./../') // you will get :'f1/f2/' "adminFolder";
+        var parentFolder=context.GetPath('./../') // you will get :'f1/f2/';
         //              and more .....
     }
 ```` 

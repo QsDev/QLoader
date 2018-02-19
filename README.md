@@ -1,8 +1,8 @@
-# QModule
+# QLoader
 
 [![N|Solid](https://storage.jumpshare.com/preview/F3wMY4nPf--XqiTv7L1coZ3SLfmf1xptQ9CicdjaxzRbGME59CvDU91nU9WKDqrulBQ66uXHlai1bGyW9gbBVlNlSmh0egFbdyHzE6LvoMAI4av1wcwKsmUDuTGzHRrg)](https://www.QDev.dz/products/QLoader)
 
-QModue is a module loader
+QLoader is a module loader
   - AMD modules. 
   - SystemJS modules.
  

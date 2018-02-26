@@ -41,17 +41,56 @@ $ node app
 
 
 ### example 
-créer un fichier js dans <root> /f1/f2/app.js
+créer un fichier js dans <root> /f1/f2/app.js  
+
 ```js
-define("adminFolder/app",["require","exports","define","context"],
-    function(require,exports,define,context){
+
+define('lib1',['exports'],function(exports){
+  exports.namespace={
+    classA:function(){
+      this.WordA="Hello";
+      this.Word2="World";
+      this.toString=function(){return this.WordA+" "+this.Word2;};
+      return this;
+    }
+  };
+});
+define('mod1',[],function(){
+  exports.Description="I am a module mod1 I am from library called lib1 ";
+});
+```
+  
+  créer un fichier js dans <root>/mod1.js
+  
+```js
+
+define('mod1',['exports','lib:lib|./f1/lib1','lib/mod1'],function(exports,lib1,mod1){
+  exports.obj={
+    getHelloWorld:function(){return new lib1.entryPoint.namespace.classA().toString();},
+    getMod1Description:function(){return mod1.Description;}
+  };
+});
+
+```
+
+create js file in <root>/f1/f2/app.js
+  
+```js
+  //suggestion :<root>= http://localhost/
+  
+define("adminFolder/app",["require","exports","define","context","../../mod1"],
+    function(require,exports,define,context,'mod'){
         //note: require: for get modules
         //      exports: is those things you want to expose to assemply
         //      define:  to register a new module
         //      context: contains usefull function for type reflection
-        var StringContructor=context.GetType('String');
-        var ClassAContructor=context.GetType('namespace.classA');
-        var parentFolder=context.GetPath('./../') // you will get :'f1/f2/';
+        var StringContructor=context.GetType('String'); // result: String Constructor;
+        var ClassAContructor=context.GetType('namespace.classA'); // result: classA constructor from lib1.js
+        var parentFolder=context.GetPath('./../') // result: :string "http://localhost/f1/";
+        var myFolder=context.GetPath('./') // result: :string "http://localhost/f1/f2/"; 
+        var root=context.GetPath('/') // result: :string "http://localhost/";
+        alert(mod1.getHelloWorld());
+        alert(mod1.getMod1Description());
         //              and more .....
     }
 ```

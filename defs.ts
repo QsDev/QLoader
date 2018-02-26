@@ -1,4 +1,4 @@
-﻿/// <reference path="./Module.ts" />
+/// <reference path="./Module.ts" />
 interface IContext {
     context: IContext;
     CanAccessToMe(type: string, folder: string, name: string): any;
@@ -124,6 +124,7 @@ declare interface ITemplateExport {
     require: (m: any) => void;
     template: ITemplateModule;
     html: HTMLElement;
+    context: IContext;
 }
 declare type $define = (path: string, dependencies: string[], module: (...args: string[]) => void) => void;
 declare type $require = (modules: string, onsuccss?: (result: any) => void, onerror?: (result: any) => void, context?: any) => any;

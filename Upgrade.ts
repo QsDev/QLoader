@@ -1,11 +1,12 @@
-﻿declare var __extends;
-var exports = {};
-var __global: { supportTemplate: boolean };
+declare var __extends;
+var exports: any = {};
+var __global: { supportTemplate: boolean, useListenerOrMutation: boolean };
 var envirenment: { isBrowser: boolean, isWebWorker: boolean, isOpera: boolean };
 var clone: (obj) => any;
 var $: (selector, context) => void;
 var $defineProperty: (o: any, p: string, attributes: PropertyDescriptor & ThisType<any>, onError?: (o: any, p: string, attributes: PropertyDescriptor & ThisType<any>) => any) => any;
 var $bench: (f: () => any, timeSpan: number) => number;
+declare var w: Window;
 ((window: any) => {
     function bench(f, timeSpan) {
         var t = performance.now();
@@ -26,8 +27,12 @@ var $bench: (f: () => any, timeSpan: number) => number;
         }
     }
     __global = {
-        supportTemplate: (function supportsTemplate() { return 'content' in document.createElement('template'); })()
+        supportTemplate: (function supportsTemplate() { return 'content' in document.createElement('template'); })(),
+        useListenerOrMutation: true
     };
+
+
+
     var __extends1 = function (d, b) {
         $defineProperty(d, 'base', {
             value: b,
@@ -74,7 +79,44 @@ var $bench: (f: () => any, timeSpan: number) => number;
     //            this[i] = obj[i];
     //        return this;
     //    }
-        (Object as any).clone = clone;    
+    function getScrollArea(x:Element) {
+        var h = []; var t = x; while (t) {
+            var oy = getComputedStyle(t).overflowY;
+            if (oy == "auto") return t;
+            t = t.parentElement;
+        }
+    }
+    (Element.prototype as any).getScrollArea = function () { return getScrollArea(this); };
+    (Object as any).clone = clone;
+    if ((Element.prototype as any).scrollIntoViewIfNeeded == void 0)
+        (Element.prototype as any).scrollIntoViewIfNeeded = function () {
+            var r = this.getBoundingClientRect();
+            var v = getScrollArea(this);
+            if (!v) {
+                this.scrollIntoView({ inline: 'center' });
+                return;
+            }
+            var t = document.body;
+            var prRect = (v || t).getBoundingClientRect();
+            var chRect = this.getBoundingClientRect();
+
+            var x = new IDBDatabase();
+            
+            if (prRect.top - r.top > 0)
+                v.scrollTop -= prRect.top - r.top;
+            else if (prRect.bottom < r.bottom)
+                v.scrollTop -= prRect.bottom - r.bottom;
+            //var maxTop = prRect.top + prRect.height - chRect.height;
+            //if (!v) {
+            //    v.scrollIntoView({ inline: 'center' });
+            //    return;
+            //}
+            //else if (chRect.top - chRect.height < prRect.top) {
+            //    v.scrollTop += chRect.top - chRect.height;
+            //}
+            //else if (chRect.bottom > prRect.bottom)
+            //    v.scrollTop += chRect.top - chRect.height - prRect.top;
+        }
     if ((String.prototype as any).endsWith === void 0)
         (String.prototype as any).endsWith = function (suffix) {
             return this.indexOf(suffix, this.length - suffix.length) !== -1;

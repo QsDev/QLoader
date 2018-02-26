@@ -60,6 +60,6 @@ define("adminFolder/app",["require","exports","define","context"],
 
 ### Enfin
 
- - Laissez Qloader TRAVAILLEZ VOTRE TRAVAIL
- - Aller faire d'Autres choses
+  - Laissez Qloader TRAVAILLEZ VOTRE TRAVAIL
+  - et Aller faire d'Autres choses
 

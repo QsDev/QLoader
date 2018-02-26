@@ -68,7 +68,7 @@ define('mod1',[],function(){
 
 define('mod1',['exports','lib:lib|./f1/lib1','lib/mod1'],function(exports,lib1,mod1){
   exports.obj={
-    getHelloWord:function(){return new lib1.entryPoint.namespace.classA().toString();},
+    getHelloWorld:function(){return new lib1.entryPoint.namespace.classA().toString();},
     getMod1Description:function(){return mod1.Description;}
   };
 });
@@ -79,7 +79,7 @@ create js file in <root>/f1/f2/app.js
   //suggestion :<root>= http://localhost/
   
 define("adminFolder/app",["require","exports","define","context","../../mod1"],
-    function(require,exports,define,context){
+    function(require,exports,define,context,'mod'){
         //note: require: for get modules
         //      exports: is those things you want to expose to assemply
         //      define:  to register a new module
@@ -89,7 +89,8 @@ define("adminFolder/app",["require","exports","define","context","../../mod1"],
         var parentFolder=context.GetPath('./../') // result: :string "http://localhost/f1/";
         var myFolder=context.GetPath('./') // result: :string "http://localhost/f1/f2/"; 
         var root=context.GetPath('/') // result: :string "http://localhost/";
-        
+        alert(mod1.getHelloWorld());
+        alert(mod1.getMod1Description());
         //              and more .....
     }
 ```` 
